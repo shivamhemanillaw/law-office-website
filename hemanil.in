@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="description" content="Official informational portal compliant with Bar Council of India Rule 36.">
+    <title>Law Office | Legal Advisory & Professional Practice</title>
+    <style>
+        :root {
+            --bg-primary: #0a192f;
+            --bg-secondary: #112240;
+            --bg-tertiary: #1a365d;
+            --text-main: #e6f1ff;
+            --text-muted: #8892b0;
+            --accent-gold: #c5a880;
+            --accent-gold-hover: #dfb15b;
+            --border-color: #233554;
+            --font-serif: 'Georgia', 'Times New Roman', serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Modal Overlay for BCI Disclaimer */
+        #disclaimer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(10, 25, 47, 0.96);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-box {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--accent-gold);
+            border-radius: 6px;
+            max-width: 680px;
+            width: 100%;
+            padding: 35px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .modal-title {
+            font-family: var(--font-serif);
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .modal-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: justify;
+            margin-bottom: 12px;
+        }
+
+        .modal-list {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .modal-list li {
+            margin-bottom: 6px;
+        }
+
+        .modal-btn {
+            background-color: transparent;
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            padding: 12px 28px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+
+        .modal-btn:hover {
+            background-color: var(--accent-gold);
+            color: var(--bg-primary);
+        }
+
+        /* Navigation Header */
+        header {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+        }
+
+        .brand-logo {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 40px 0 60px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .hero-description {
+            color: var(--text-muted);
+            max-width: 800px;
+            font-size: 1rem;
+            text-align: justify;
+        }
+
+        /* Section Styling */
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-gold);
+            margin-top: 8px;
+        }
+
+        .info-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 30px;
+            margin-bottom: 50px;
+        }
+
+        /* Table Styling */
+        .credentials-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .credentials-table th, .credentials-table td {
+            text-align: left;
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+
+        .credentials-table th {
+            color: var(--accent-gold);
+            width: 30%;
+        }
+
+        .credentials-table td {
+            color: var(--text-muted);
+        }
+
+        /* Grid Layout */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .grid-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 25px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .grid-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-gold);
+        }
+
+        .card-title {
+            font-family: var(--font-serif);
+            color: var(--text-main);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: justify;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background-color: var(--accent-gold);
+            color: var(--bg-primary);
+            border: none;
+            padding: 12px 30px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--accent-gold-hover);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h4 {
+            color: var(--accent-gold);
+            font-family: var(--font-serif);
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .copyright-bar {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 1.8rem; }
+            .nav-links { display: none; }
+            .credentials-table th, .credentials-table td { display: block; width: 100%; }
+            .credentials-table th { padding-bottom: 4px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Mandatory BCI Rule 36 Disclaimer Modal -->
+    <div id="disclaimer-overlay">
+        <div class="modal-box">
+            <h2 class="modal-title">Regulatory Terms of Access</h2>
+            <p class="modal-text">
+                Under the rules of the Bar Council of India, advocates and law offices are prohibited from soliciting work or advertising legal services. By clicking <strong>"I AGREE"</strong>, the user acknowledges and confirms the following:
+            </p>
+            <ul class="modal-list">
+                <li><strong>No Solicitation:</strong> The user confirms that there has been no advertisement, personal communication, solicitation, invitation, or inducement from the legal practice.</li>
+                <li><strong>Voluntary Access:</strong> The user accesses this portal voluntarily to seek general background information regarding the practice.</li>
+                <li><strong>No Attorney-Client Relationship:</strong> Browsing this portal or submitting an inquiry does not establish an advocate-client relationship.</li>
+                <li><strong>Informational Content:</strong> Information provided herein is strictly for informational purposes and does not constitute legal advice.</li>
+            </ul>
+            <button class="modal-btn" onclick="acceptDisclaimer()">I AGREE & PROCEED</button>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="brand-logo">ADVOCATES & LEGAL CONSULTANTS</a>
+            <ul class="nav-links">
+                <li><a href="#about">Overview</a></li>
+                <li><a href="#credentials">Credentials</a></li>
+                <li><a href="#practice">Practice Areas</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero" id="about">
+            <h1 class="hero-title">Legal Advisory & Professional Chambers</h1>
+            <div class="hero-subtitle">Bar Council Enrolment & Statutory Compliance Portal</div>
+            <p class="hero-description">
+                This digital portal is maintained in accordance with Resolution 50/2008 under Rule 36 of the Bar Council of India Rules. It provides objective, factual details concerning professional qualifications, Bar accreditation, and practice areas.
+            </p>
+        </section>
+
+        <!-- Credentials & Qualifications Section -->
+        <section style="margin-top: 50px;" id="credentials">
+            <h2 class="section-title">Bar Enrolment & Academic Credentials</h2>
+            <div class="info-card">
+                <table class="credentials-table">
+                    <tr>
+                        <th>Legal Practice Title</th>
+                        <td>Advocate Office / Law Chambers</td>
+                    </tr>
+                    <tr>
+                        <th>Bar Council Enrolment</th>
+                        <td>State Bar Council Roll No. MAH/XXXX/2012</td>
+                    </tr>
+                    <tr>
+                        <th>Bar Associations</th>
+                        <td>High Court Bar Association & Supreme Court Advocates-on-Record Association</td>
+                    </tr>
+                    <tr>
+                        <th>Academic Qualifications</th>
+                        <td>Bachelor of Laws (LL.B.), Master of Laws (LL.M. Commercial Law)</td>
+                    </tr>
+                    <tr>
+                        <th>Judicial Jurisdictions</th>
+                        <td>High Courts, District & Sessions Courts, Statutory Tribunals</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- Permissible Practice Areas Grid -->
+        <section id="practice">
+            <h2 class="section-title">Permissible Categories of Practice</h2>
+            <div class="grid-layout">
+                <div class="grid-card">
+                    <h3 class="card-title">Civil Litigation</h3>
+                    <p class="card-desc">
+                        Legal advisory and representation in civil suits, property disputes, contractual claims, and appellate proceedings before judicial forums.
+                    </p>
+                </div>
+                <div class="grid-card">
+                    <h3 class="card-title">Corporate & Commercial Advisory</h3>
+                    <p class="card-desc">
+                        Assistance regarding statutory corporate filings, transactional structuring, commercial contract review, and compliance governance.
+                    </p>
+                </div>
+                <div class="grid-card">
+                    <h3 class="card-title">Criminal Defense</h3>
+                    <p class="card-desc">
+                        Representation in trial court proceedings, bail hearings, statutory revisions, and regulatory defense matters.
+                    </p>
+                </div>
+                <div class="grid-card">
+                    <h3 class="card-title">Constitutional Law</h3>
+                    <p class="card-desc">
+                        Drafting and pleading writ petitions and constitutional matters before Honorable High Courts and the Supreme Court of India.
+                    </p>
+                </div>
+                <div class="grid-card">
+                    <h3 class="card-title">Taxation & Administrative Law</h3>
+                    <p class="card-desc">
+                        Advisory services regarding direct and indirect tax disputes, statutory appeals, and tribunal representations.
+                    </p>
+                </div>
+                <div class="grid-card">
+                    <h3 class="card-title">Arbitration & Dispute Resolution</h3>
+                    <p class="card-desc">
+                        Representation in domestic commercial arbitrations, alternative dispute proceedings, and enforcement proceedings.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- User-Initiated Contact Form -->
+        <section id="contact">
+            <h2 class="section-title">User-Initiated Inquiry</h2>
+            <div class="info-card">
+                <form id="intake-form" onsubmit="handleFormSubmit(event)">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" class="form-control" required placeholder="Enter full legal name">
+                    </div>
+                    <div class="form-group">
+                        <label for="emailAddr">Email Address</label>
+                        <input type="email" id="emailAddr" class="form-control" required placeholder="name@domain.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNum">Contact Phone Number</label>
+                        <input type="tel" id="phoneNum" class="form-control" required placeholder="+91 00000 00000">
+                    </div>
+                    <div class="form-group">
+                        <label for="practiceArea">Legal Matter Category</label>
+                        <select id="practiceArea" class="form-control" required>
+                            <option value="">Select Category</option>
+                            <option value="civil">Civil Litigation</option>
+                            <option value="corporate">Corporate / Commercial</option>
+                            <option value="criminal">Criminal Defense</option>
+                            <option value="constitutional">Constitutional Law</option>
+                            <option value="tax">Taxation</option>
+                            <option value="other">General Inquiry</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="messageContent">Factual Summary of Inquiry</label>
+                        <textarea id="messageContent" class="form-control" required placeholder="Provide concise context..."></textarea>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 15px;">
+                        Notice: Transmitting information via this form does not establish an advocate-client relationship. Avoid sending confidential case specifics prior to formal engagement.
+                    </p>
+                    <button type="submit" class="submit-btn">Transmit Inquiry</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>Chamber Location</h4>
+                <p>Chamber No. XXX, Lawyers Block</p>
+                <p>High Court Complex, City - 000 000</p>
+                <p>State, India</p>
+            </div>
+            <div class="footer-column">
+                <h4>Direct Contact</h4>
+                <p>Phone: +91 (0) 11 2300 0000</p>
+                <p>Email: contact@chamberdomain.com</p>
+                <p>Hours: Mon - Fri, 09:00 - 17:00</p>
+            </div>
+            <div class="footer-column">
+                <h4>Statutory Compliance</h4>
+                <p>
+                    This portal is published in strict conformity with Resolution 50/2008 under Rule 36, Part VI, Chapter II of the Bar Council of India Rules.
+                </p>
+            </div>
+        </div>
+        <div class="copyright-bar">
+            <p>&copy; Law Chamber Portal. Maintained solely as a passive informational resource.</p>
+        </div>
+    </footer>
+
+    <script>
+        function acceptDisclaimer() {
+            localStorage.setItem('bci_disclaimer_accepted', 'true');
+            document.getElementById('disclaimer-overlay').style.display = 'none';
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const isAccepted = localStorage.getItem('bci_disclaimer_accepted');
+            if (isAccepted === 'true') {
+                document.getElementById('disclaimer-overlay').style.display = 'none';
+            }
+        });
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            alert('Your factual inquiry has been transmitted. Chamber representatives will review the submission.');
+            document.getElementById('intake-form').reset();
+        }
+    </script>
+</body>
+</html>
